@@ -14,7 +14,12 @@
    <name>JBoss AS7 Managed Container BOM</name>
 
    <dependencies>
-   
+       <dependency>
+         <groupId>org.jboss.remotingjmx</groupId>
+         <artifactId>remoting-jmx</artifactId>
+         <version>1.0.4.Final-redhat-1</version>
+      </dependency>
+  
       <dependency>
          <groupId>org.jboss.as</groupId>
          <artifactId>jboss-as-arquillian-container-managed</artifactId>
@@ -27,6 +32,5 @@
          <type>pom</type>
          <scope>compile</scope>
       </dependency>
-      
    </dependencies>
 </project>
