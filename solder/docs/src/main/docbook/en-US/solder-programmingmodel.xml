@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2010, Red Hat Middleware LLC, and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--> 
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+
+<chapter id="solder-programmingmodel">
+   <title>Enhancements to the CDI Programming Model</title>
+      
+   <para>
+      Solder provides a number enhancements to the CDI programming model which are under trial and may be
+      included in later releases of <emphasis>Contexts and Dependency Injection</emphasis>.
+   </para>
+   
+   <section>
+      <title>Preventing a class from being processed</title>
+      
+      <section>
+         <title>@Veto</title>
+      
+         <para>
+            Annotating a class <code>@Veto</code> will cause the type to be ignored, such that any definitions on the 
+            type will not be processed, including:
+         </para>
+      
+         <itemizedlist>
+            <listitem>
+               <para>the managed bean, decorator, interceptor or session bean defined by the type</para>
+            </listitem>
+            <listitem>
+               <para>any producer methods or producer fields defined on the type</para>
+            </listitem>
+            <listitem>
+               <para>any observer methods defined on the type</para>
+            </listitem>
+         </itemizedlist>
+         
+         <para>
+            For example:
+         </para>
+         
+         <programlisting role="JAVA">@Veto
+class Utilities {
+   ...
+}</programlisting>
+
+		<para>
+			Besides, a package can be annotated with <code>@Veto</code>, causing all beans in the package to be prevented
+			from registration.
+		</para>
+		
+		<example>
+			<title>package-info.java</title>
+			<programlisting role="JAVA">@Veto
+package com.example;
+
+import org.jboss.solder.core.Veto;</programlisting>
+		</example>
+         
+         <note>
+            <para>
+               The <code>ProcessAnnotatedType</code> container lifecycle event will be called for vetoed types.
+            </para>
+         </note>
+      
+      </section>
+   
+      <section>
+         <title>@Requires</title>
+      
+         <para>
+            Annotating a class with <code>@Requires</code> will cause the type to be ignored if the class dependencies
+            cannot be satisfied. Any definitions on the type will not be processed:
+         </para>
+         
+         <itemizedlist>
+            <listitem>
+               <para>the managed bean, decorator, interceptor or session bean defined by the type</para>
+            </listitem>
+            <listitem>
+              <para>any producer methods or producer fields defined on the type</para>
+            </listitem>
+            <listitem>
+               <para>any observer methods defined on the type</para>
+            </listitem>
+         </itemizedlist>
+         
+         <tip>
+            <para>
+               Solder will use the Thread Context ClassLoader, as well as the classloader of the type annotated
+               <code>@Requires</code> to attempt to satisfy the class dependency.
+            </para>  
+         </tip>
+         
+         <para>
+            For example:
+         </para>
+         
+         <programlisting role="JAVA">@Requires("javax.persistence.EntityManager")
+class EntityManagerProducer {
+   
+   @Produces
+   EntityManager getEntityManager() {
+      ...
+   }
+   
+}</programlisting>
+
+		<para>
+			Annotating a package with <code>@Requires</code> causes all beans in the package to be ignored if the class dependencies
+            cannot be satisfied. If both a class and it's package are annotated with <code>@Requires</code>, both package-level and
+            class-level dependencies have to be satisfied for the bean to be installed.
+		</para>
+         
+         <note>
+            <para>
+               The <code>ProcessAnnotatedType</code> container lifecycle event will be called for required types.
+            </para>
+         </note>
+         
+      </section>
+   </section>
+   
+   <section>
+      <title>@Exact</title>
+      
+      <para>
+         Annotating an injection point with <code>@Exact</code> allows you to select an exact implementation of the
+         injection point type to inject. For example: 
+      </para>
+      
+      <programlisting role="JAVA">interface PaymentService { 
+   ...
+}</programlisting>
+
+      <programlisting role="JAVA">class ChequePaymentService implements PaymentService { 
+   ...
+}</programlisting>
+
+      <programlisting role="JAVA">class CardPaymentService implements PaymentService { 
+   ...
+}</programlisting>
+
+      <programlisting role="JAVA">class PaymentProcessor { 
+   
+   @Inject @Exact(CardPaymentService.class)
+   PaymentService paymentService;
+   
+   ...
+   
+}</programlisting>
+      
+   </section>
+   
+   <section>
+      <title>@Client</title>
+      
+      <para>
+         It is common to want to qualify a bean as belonging to the current client (for example we want to differentiate
+         the default system locale from the current client's locale). Solder provides a built in qualifier,
+         <code>@Client</code> for this purpose.
+      </para>
+      
+   </section>
+   
+   <section>
+      <title>Named packages</title>
+      
+      <para>
+         Solder allows you to annotate the package <code>@Named</code>, which causes every bean defined in the
+         package to be given its default name. Package annotations are defined in the file 
+         <code>package-info.java</code>. For example, to cause any beans defined in <code>com.acme</code> to be given
+         their default name:
+      </para>
+      
+      <programlisting role="JAVA">@Named
+package com.acme</programlisting>
+   </section>
+
+   <section>
+      <title>@FullyQualified bean names</title>
+
+      <para>
+         According to the CDI standard, the <code>@Named</code> annotation assigns a name to a bean equal to the value
+         specified in the <code>@Named</code> annotation or, if a value is not provided, the simple name of the bean class.
+         This behavior aligns with the needs of most application developers. However, framework writers should avoid
+         trampling on the "root" bean namespace. Instead, frameworks should specify qualified names for built-in components.
+         The motivation is the same as qualifying Java types. The <code>@FullyQualified</code> provides this facility without
+         sacrificing type-safety.
+      </para>
+      
+      <para>
+         Solder allows you to customize the bean name using the complementary <code>@FullyQualified</code>
+         annotation. When the <code>@FullyQualified</code> annotation is added to a <code>@Named</code> bean type, producer
+         method or producer field, the standard bean name is prefixed with the name of the Java package in which the bean
+         resides, the segments separated by a period. The resulting fully-qualified bean name (FQBN) replaces the standard
+         bean name.
+      </para>
+
+      <programlisting role="JAVA">package com.acme;
+      
+@FullyQualified @Named
+public class NamedBean {
+   public int getAge()
+   {
+      return 5;
+   }
+}</programlisting>
+
+      <para>
+         The bean in the previous code listing is assigned the name <code>com.acme.namedBean</code>. The value of its
+         property <code>age</code> would be referenced in an EL expression (perhaps in a JSF view template) as follows:
+      </para>
+
+      <programlisting>#{com.acme.namedBean.age}</programlisting>
+
+      <para>
+         The <code>@FullyQualified</code> annotation is permitted on a bean type, producer method or producer field. It can
+         also be used on a Java package, in which case all <code>@Named</code> beans in that package get a bean name which is
+         fully-qualified.
+      </para>
+
+      <programlisting role="JAVA">@FullyQualified
+package com.acme;
+</programlisting>
+
+      <para>
+         If you want to use a different Java package as the namespace of the bean, rather than the Java package of the bean,
+         you specify any class in that alternative package in the annotation value.
+      </para>
+
+      <programlisting role="JAVA">package com.acme;
+      
+@FullyQualified(ClassInOtherPackage.class) @Named
+public class CustomNamespacedNamedBean {
+   ...
+}</programlisting>
+      
+   </section>
+   
+</chapter>
