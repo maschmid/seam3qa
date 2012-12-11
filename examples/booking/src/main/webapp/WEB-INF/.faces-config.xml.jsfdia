@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{identity.logout}:#home.xhtml"
+    NAME="output" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{identity.logout}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID=":#{bookingAgent.cancel}:#search.xhtml"
+    NAME="output1" PATH="/search.xhtml" TARGET="rules:#search.xhtml"
+    TITLE="#{bookingAgent.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
+  SHAPE="272,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#home.xhtml:0" NAME="item" PATH="/home.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{identity.login}:#search.xhtml"
+    NAME="output" PATH="/search.xhtml" TARGET="rules:#search.xhtml"
+    TITLE="#{identity.login}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="failed:#{identity.login}:#home.xhtml"
+    NAME="output1" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{identity.login}:failed" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#search.xhtml" PATH="/search.xhtml"
+  SHAPE="512,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#book.xhtml" PATH="/book.xhtml"
+  SHAPE="928,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#book.xhtml:0" NAME="item" PATH="/book.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{bookingAgent.validate}:#confirm.xhtml"
+    NAME="output" PATH="/confirm.xhtml" TARGET="rules:#confirm.xhtml"
+    TITLE="#{bookingAgent.validate}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#confirm.xhtml" PATH="/confirm.xhtml"
+  SHAPE="1136,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#confirm.xhtml:0" NAME="item"
+   PATH="/confirm.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{bookingAgent.confirm}:#search.xhtml"
+    NAME="output" PATH="/search.xhtml" TARGET="rules:#search.xhtml"
+    TITLE="#{bookingAgent.confirm}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#register.xhtml" PATH="/register.xhtml"
+  SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#register.xhtml:0" NAME="item"
+   PATH="/register.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{registrar.register}:#home.xhtml"
+    NAME="output" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{registrar.register}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#password.xhtml" PATH="/password.xhtml"
+  SHAPE="32,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#password.xhtml:0" NAME="item"
+   PATH="/password.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{passwordManager.changePassword}:#account.xhtml" NAME="output"
+    PATH="/account.xhtml" TARGET="rules:#account.xhtml"
+    TITLE="#{passwordManager.changePassword}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#account.xhtml" PATH="/account.xhtml"
+  SHAPE="240,289,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>
