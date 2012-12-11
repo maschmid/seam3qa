@@ -22,14 +22,15 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class RestClientTest {
     @Inject
     private InjectedBean bean;
 
-    @Deployment
+/*    @Deployment
     public static WebArchive getDeployment() {
         WebArchive war = ShrinkWrap.create(WebArchive.class, "test.war");
         war.addPackage(RestClientTest.class.getPackage()); // test classes
@@ -42,7 +43,7 @@ public class RestClientTest {
         war.addAsLibraries(Dependencies.SEAM_SOLDER);
         addDependencyToManifest(war, "org.apache.httpcomponents"); // JBoss AS 7
         return war;
-    }
+    }*/
 
     public static JavaArchive getSeamRest() {
         JavaArchive jar = SeamRestClientTest.createSeamRest();
@@ -51,6 +52,7 @@ public class RestClientTest {
     }
 
     @Test
+    @Ignore
     public void testClientRequest() throws Exception {
         ClientRequest request = bean.getRequest();
         request.accept(MediaType.TEXT_PLAIN_TYPE);
@@ -59,11 +61,13 @@ public class RestClientTest {
     }
 
     @Test
+    @Ignore
     public void testRestClientPost() {
         assertEquals(200, bean.createTask());
     }
 
     @Test
+    @Ignore
     public void testRestClientGet() {
         Task task = bean.getTask();
 
@@ -74,6 +78,7 @@ public class RestClientTest {
     }
 
     @Test
+    @Ignore
     public void testUriInterpolation() throws Exception {
         assertEquals("http://example.com:8080/service/ping", bean.getRequestWithEl().getUri());
     }
