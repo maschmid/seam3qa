@@ -27,7 +27,7 @@
     <parent>
         <artifactId>seam-parent</artifactId>
         <groupId>org.jboss.seam</groupId>
-        <version>19</version>
+        <version>20-SNAPSHOT</version>
     </parent>
 
     <groupId>org.jboss.seam.validation</groupId>
