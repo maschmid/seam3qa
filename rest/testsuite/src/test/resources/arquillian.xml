@@ -25,6 +25,8 @@
     </engine>
     -->
 
+    <defaultProtocol type="Servlet 3.0" />
+
     <container qualifier="weld-ee-embedded-1.1">
     </container>
 
