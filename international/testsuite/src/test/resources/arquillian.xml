@@ -25,13 +25,12 @@
     </engine>
     -->
 
+    <defaultProtocol type="Servlet 3.0" />
+
     <container qualifier="weld-ee-embedded-1.1">
     </container>
 
     <container qualifier="jbossas-managed-7">
-        <configuration>
-            <property name="jbossHome">target/jboss-as-${jbossas7.version}</property>
-        </configuration>
     </container>
 
     <container qualifier="jbossas-remote-7">
