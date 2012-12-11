@@ -44,6 +44,8 @@ public class JBossASTestUtils {
     public static WebArchive createTestArchive(boolean includeEmptyBeansXml) {
         WebArchive war = ShrinkWrap.createDomain().getArchiveFactory().create(WebArchive.class, "test.war");
 
+        war.addAsWebInfResource("web.xml");
+        
         war.addAsLibraries(
                 DependencyResolvers.use(MavenDependencyResolver.class)
                 .configureFrom("../settings.xml")
