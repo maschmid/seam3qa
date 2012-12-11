@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    JBoss, Home of Professional Open Source
+
+    Copyright 2011, Red Hat, Inc., and individual contributors
+    by the @authors tag. See the copyright.txt in the distribution for a
+    full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="validation-introduction">
+  <title>Introduction</title>
+
+  <para>The Seam Validation module aims at integrating <ulink
+  url="http://validator.hibernate.org/">Hibernate Validator</ulink>, the
+  reference implementation for the Bean Validation API (<ulink
+  url="http://jcp.org/en/jsr/detail?id=303">JSR 303</ulink>), with CDI (<ulink
+  url="http://jcp.org/en/jsr/detail?id=299">JSR 299</ulink>).</para>
+
+  <para>This integration falls into two main areas:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Enhanced dependency injection services for validators, validator
+      factories and constraint validators</para>
+    </listitem>
+
+    <listitem>
+      <para>Automatic validation of method parameters and return values based
+      on Hibernate Validator's method validation feature</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>The Seam Validation module is based on version 4.2 or later of
+    Hibernate Validator. As of March 2011 Hibernate Validator 4.2 is still in
+    the works and no final release exists yet.</para>
+
+    <para>This means that - though unlikely - also changes to the API of the
+    Seam Validation module might become necessary.</para>
+
+    <para>The Seam Validation module is therefore released as a technology
+    preview with the Seam 3 release train, with a final version following
+    soon. Nevertheless you should give it a try already today and see what the
+    Seam Validation module and especially the automatic method validation
+    feature can do for you. Please refer to the <ulink
+    url="http://seamframework.org/Seam3/ValidationModule">module home
+    page</ulink> for any news on Seam Validation.</para>
+  </note>
+
+  <para>The remainder of this reference guide covers the following
+  topics:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><link linkend="validation-installation">Installation</link> of
+      Seam Validation</para>
+    </listitem>
+
+    <listitem>
+      <para><link linkend="validation-dependency-injection">Dependency
+      injection</link> services for Hibernate Validator</para>
+    </listitem>
+
+    <listitem>
+      <para>Automatic <link linkend="validation-method-validation">method
+      validation</link></para>
+    </listitem>
+  </itemizedlist>
+</chapter>
