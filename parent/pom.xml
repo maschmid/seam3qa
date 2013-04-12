@@ -52,10 +52,13 @@
 
       <!-- Arquillian versions -->
       <arquillian.version>1.0.3.Final</arquillian.version>
+
       <arquillian.drone.version>1.0.0.CR2</arquillian.drone.version>
       <arquillian.ajocado.version>1.0.0.CR2</arquillian.ajocado.version>
       <arquillian.jacoco.version>1.0.0.Alpha2</arquillian.jacoco.version>
+<!--
       <arquillian.jboss.version>1.0.0.CR2</arquillian.jboss.version>
+-->
       <arquillian.jetty.version>1.0.0.CR1</arquillian.jetty.version>
       <arquillian.tomcat.version>1.0.0.CR2</arquillian.tomcat.version>
       <arquillian.weld.version>1.0.0.CR3</arquillian.weld.version>
@@ -65,7 +68,7 @@
       <arquillian.openshift.express.version>1.0.0.Alpha1</arquillian.openshift.express.version>
 
       <!-- Container versions -->
-      <jbossas7.version>7.1.1.Final</jbossas7.version>
+      <jbossas7.version>7.2.0.Final</jbossas7.version>
       <glassfish.embedded.version>3.1.1</glassfish.embedded.version>
       <openwebbeans.version>1.0.0</openwebbeans.version>
       
@@ -94,9 +97,10 @@
       <hsqldb.version>2.2.4</hsqldb.version>
       <subetha.version>3.1.4</subetha.version>
       <jersey.version>1.5</jersey.version>
-
+<!--
       <jbossas.servermanager.version>1.0.4.Final</jbossas.servermanager.version>
       <jbossas.client.version>6.0.0.Final</jbossas.client.version>
+-->
       <glassfish.server.version>3.1-b37</glassfish.server.version>
       
       <selenium.java.client.version>1.0.1</selenium.java.client.version>
@@ -121,9 +125,9 @@
    <modules>
       <module>test/glassfish-embedded-3.1</module>
       <module>test/glassfish-remote-3.1</module>
-      <module>test/jbossas-managed-6</module>
+<!--      <module>test/jbossas-managed-6</module>-->
       <module>test/jbossas-managed-7</module>
-      <module>test/jbossas-remote-6</module>
+<!--      <module>test/jbossas-remote-6</module>-->
       <module>test/jbossas-remote-7</module>
       <!--<module>test/jetty-embedded-7</module>
       <module>test/openejb-embedded-3.1</module-->
@@ -260,20 +264,22 @@
             <scope>compile</scope>
          </dependency>
 
+<!--
          <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-jbossas-remote-6</artifactId>
             <version>${arquillian.jboss.version}</version>
             <scope>test</scope>
          </dependency>
-
+-->
+<!--
          <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-jbossas-managed-6</artifactId>
             <version>${arquillian.jboss.version}</version>
             <scope>test</scope>
          </dependency>
-
+-->
          <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
@@ -386,13 +392,16 @@
             <scope>test</scope>
          </dependency>
 
+<!--
          <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-server-manager</artifactId>
             <version>${jbossas.servermanager.version}</version>
             <scope>test</scope>
          </dependency>
+-->
 
+<!--
          <dependency>
             <groupId>org.jboss.jbossas</groupId>
             <artifactId>jboss-as-client</artifactId>
@@ -400,7 +409,7 @@
             <type>pom</type>
             <scope>test</scope>
          </dependency>       
-         
+    -->     
          <!-- Container BOMs -->
          
          <dependency>

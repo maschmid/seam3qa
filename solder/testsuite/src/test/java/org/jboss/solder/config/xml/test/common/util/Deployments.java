@@ -56,7 +56,7 @@ public class Deployments {
         WebArchive archive = baseDeployment(klass)
         // weld-embedded reads it from META-INF/seam-beans.xml, not from WEB-INF/classes/META-INF/seam-beans.xml as it should
         // so we add it to both locations
-        .addAsResource(fileName, "META-INF/seam-beans.xml").addAsManifestResource(fileName, "seam-beans.xml");
+        .addAsResource(fileName, "META-INF/seam-beans.xml")/*.addAsManifestResource(fileName, "seam-beans.xml")*/;
 
         return archive;
     }
