@@ -79,7 +79,7 @@ public class TypedMessageLoggerExtension implements Extension {
     }
 
     private static <T> Bean<T> createMessageLoggerBean(Bean<Object> delegate, AnnotatedType<T> type, BeanManager beanManager) {
-        return new NarrowingBeanBuilder<T>(delegate, beanManager).readFromType(type).types(type.getBaseType(), Object.class).create();
+        return new NarrowingBeanBuilder<T>(delegate, beanManager).readFromType(type).types(type.getBaseType(), Object.class).passivationCapable(true).id(type.getJavaClass().toString()).create();
     }
 
     void cleanup(@Observes AfterDeploymentValidation event) {
