@@ -205,7 +205,7 @@ public class CoreExtension implements Extension {
     }
 
     void afterBeanDiscovery(@Observes AfterBeanDiscovery abd, BeanManager beanManager) {
-        failIfWeldExtensionsDetected(beanManager);
+//        failIfWeldExtensionsDetected(beanManager);
         for (Bean<?> bean : additionalBeans) {
             abd.addBean(bean);
         }

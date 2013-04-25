@@ -99,7 +99,7 @@ public class CatchExtension implements Extension, HandlerMethodContainer {
                     }
                     final Class<? extends Throwable> exceptionType = (Class<? extends Throwable>) ((ParameterizedType) param.getBaseType()).getActualTypeArguments()[0];
 
-                    registerHandlerMethod(new HandlerMethodImpl(method, bm));
+                    registerHandlerMethod(new HandlerMethodImpl(method, bm, pmb.getBean()));
                 }
             }
         }

@@ -48,8 +48,8 @@ public class ImplicitHttpServletObjectsProducer implements Serializable {
     @Inject
     private ImplicitServletObjectsHolder holder;
 
-    @Produces
-    @RequestScoped
+//    @Produces
+//    @RequestScoped
     protected HttpSession getHttpSession() {
         if (holder.getHttpSession() == null) {
             throw new IllegalStateException("Attempted to inject an HttpSession before it has been initialized.");
@@ -65,9 +65,9 @@ public class ImplicitHttpServletObjectsProducer implements Serializable {
         return holder.getHttpServletRequestContext();
     }
 
-    @Produces
-    @Typed(HttpServletRequest.class)
-    @RequestScoped
+//    @Produces
+//    @Typed(HttpServletRequest.class)
+//    @RequestScoped
     protected HttpServletRequest getHttpServletRequest() {
         if (holder.getHttpServletRequest() == null) {
             throw new IllegalStateException("Attempted to inject an HttpServletRequest before it has been initialized.");

@@ -104,7 +104,7 @@ public class HandlerMethodImpl<T extends Throwable> implements HandlerMethod<T> 
      * @throws IllegalArgumentException if method is null, has no params or first param is not annotated with
      *                                  {@link Handles}
      */
-    public HandlerMethodImpl(final AnnotatedMethod<?> method, final BeanManager bm) {
+    public HandlerMethodImpl(final AnnotatedMethod<?> method, final BeanManager bm, final Bean<?> bean) {
         if (!HandlerMethodImpl.isHandler(method)) {
             throw new IllegalArgumentException(MessageFormat.format("{0} is not a valid handler", method));
         }
@@ -135,7 +135,7 @@ public class HandlerMethodImpl<T extends Throwable> implements HandlerMethod<T> 
 
         for (AnnotatedParameter<?> param : method.getParameters()) {
             if (!param.equals(this.handlerParameter))
-                this.injectionPoints.add(new ImmutableInjectionPoint(param, bm, this.getBean(bm), false, false));
+                this.injectionPoints.add(new ImmutableInjectionPoint(param, bm, bean, false, false));
         }
     }
 

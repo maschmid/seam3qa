@@ -136,7 +136,7 @@ public class XmlConfigExtension implements Extension {
                 AnnotatedType<?> tp = bb.getAnnotatedType();
                 log.info("Adding XML Defined Bean: " + tp.getJavaClass().getName());
                 ProcessAnnotatedType<?> pat = new ProcessAnnotatedTypeImpl((AnnotatedType) tp);
-                beanManager.fireEvent(pat, DefaultLiteral.INSTANCE);
+                // beanManager.fireEvent(pat, DefaultLiteral.INSTANCE);
                 event.addAnnotatedType(pat.getAnnotatedType());
             }
 
