@@ -555,7 +555,9 @@ public class GenericBeanExtension implements Extension {
         final GenericConfigurationHolder holder = genericConfigurationPoints.get(identifier);
 
         // TODO make this passivation capable?
-        BeanBuilder<Annotated> builder = new BeanBuilder<Annotated>(beanManager).beanClass(AnnotatedMember.class).qualifiers(Collections.<Annotation>singleton(annotatedMemberInjectionProvider.get(identifier))).beanLifecycle(new ContextualLifecycle<Annotated>() {
+        
+        // TODO, setting the type AnnotatedMember<Object>, which is a hack
+        BeanBuilder<Annotated> builder = new BeanBuilder<Annotated>(beanManager).beanClass(AnnotatedMember.class).types(new javax.enterprise.util.TypeLiteral<AnnotatedMember<Object>>() {}.getType()).qualifiers(Collections.<Annotation>singleton(annotatedMemberInjectionProvider.get(identifier))).beanLifecycle(new ContextualLifecycle<Annotated>() {
 
             public void destroy(Bean<Annotated> bean, Annotated instance, CreationalContext<Annotated> ctx) {
                 // No-op
