@@ -68,6 +68,7 @@
       <arquillian.openshift.express.version>1.0.0.Alpha1</arquillian.openshift.express.version>
 
       <!-- Container versions -->
+      <wildfly.version>8.0.0.Alpha1</wildfly.version>
       <jbossas7.version>7.2.0.Final</jbossas7.version>
       <glassfish.embedded.version>3.1.1</glassfish.embedded.version>
       <openwebbeans.version>1.0.0</openwebbeans.version>
@@ -129,6 +130,8 @@
       <module>test/jbossas-managed-7</module>
 <!--      <module>test/jbossas-remote-6</module>-->
       <module>test/jbossas-remote-7</module>
+      <module>test/wildfly-remote-8</module>
+
       <!--<module>test/jetty-embedded-7</module>
       <module>test/openejb-embedded-3.1</module-->
       <module>test/openwebbeans-embedded-1</module>
@@ -239,7 +242,14 @@
             <version>${jbossas7.version}</version>
             <scope>test</scope>
          </dependency>
-         
+
+         <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-arquillian-container-remote</artifactId>
+            <version>${wildfly.version}</version>
+            <scope>test</scope>
+         </dependency>
+        
          <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-dist</artifactId>
@@ -423,6 +433,14 @@
          <dependency>
             <groupId>org.jboss.seam.test</groupId>
             <artifactId>jbossas-remote-7</artifactId>
+            <version>${container.bom.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+         </dependency>
+
+          <dependency>
+            <groupId>org.jboss.seam.test</groupId>
+            <artifactId>wildfly-remote-8</artifactId>
             <version>${container.bom.version}</version>
             <type>pom</type>
             <scope>test</scope>
