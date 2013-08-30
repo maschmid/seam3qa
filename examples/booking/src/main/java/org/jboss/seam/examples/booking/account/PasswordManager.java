@@ -28,6 +28,8 @@ import org.jboss.seam.examples.booking.i18n.DefaultBundleKey;
 import org.jboss.seam.examples.booking.model.User;
 import org.jboss.seam.international.status.Messages;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 /**
  * The view controller for changing the user password
  *
@@ -35,6 +37,7 @@ import org.jboss.seam.international.status.Messages;
  */
 @Stateful
 @Model
+@Clustered
 public class PasswordManager {
     @PersistenceContext
     private EntityManager em;

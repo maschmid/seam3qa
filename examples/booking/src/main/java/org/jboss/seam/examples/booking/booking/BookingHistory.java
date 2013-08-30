@@ -46,6 +46,8 @@ import org.jboss.seam.examples.booking.model.User_;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.security.Identity;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 /**
  * The booking history exposes the current users existing bookings
  *
@@ -54,6 +56,7 @@ import org.jboss.seam.security.Identity;
 @Stateful
 @SessionScoped
 @Named
+@Clustered
 public class BookingHistory {
     @Inject
     private Logger log;

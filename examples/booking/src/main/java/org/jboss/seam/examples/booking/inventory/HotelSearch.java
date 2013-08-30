@@ -36,12 +36,15 @@ import org.jboss.seam.examples.booking.model.Hotel;
 import org.jboss.seam.examples.booking.model.Hotel_;
 import org.jboss.seam.international.status.builder.TemplateMessage;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 /**
  * @author <a href="http://community.jboss.org/people/dan.j.allen">Dan Allen</a>
  */
 @Named
 @Stateful
 @SessionScoped
+@Clustered
 public class HotelSearch {
 
     @Inject

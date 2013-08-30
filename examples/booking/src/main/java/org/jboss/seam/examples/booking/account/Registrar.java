@@ -33,6 +33,8 @@ import org.jboss.seam.examples.booking.model.User;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.international.status.builder.BundleKey;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 /**
  * The view controller for registering a new user
  *
@@ -40,6 +42,7 @@ import org.jboss.seam.international.status.builder.BundleKey;
  */
 @Stateful
 @Model
+@Clustered
 public class Registrar {
     @PersistenceContext
     private EntityManager em;

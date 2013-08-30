@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.seam.examples.booking.model.User;
 
+import org.jboss.ejb3.annotation.Clustered;
+
 /**
  * Exposes the currently logged in user
  *
@@ -32,6 +34,7 @@ import org.jboss.seam.examples.booking.model.User;
  */
 @Stateful
 @SessionScoped
+@Clustered
 public class CurrentUserManager {
     private User currentUser;
 
@@ -47,6 +50,7 @@ public class CurrentUserManager {
         currentUser = user;
         // reward authenticated users with a longer session
         // default is kept short to prevent search engines from driving up # of sessions
-        request.getSession().setMaxInactiveInterval(3600);
+//        request.getSession().setMaxInactiveInterval(3600);
+        request.getSession().setMaxInactiveInterval(180);
     }
 }

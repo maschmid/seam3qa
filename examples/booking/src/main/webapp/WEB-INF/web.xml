@@ -6,6 +6,8 @@
 
     <display-name>Seam Booking Example (Java EE Environment)</display-name>
 
+    <distributable/>
+
     <!--
       Set project stage to Production for production deployments!!
       Production mode also allows all exceptions to propagate to Seam Catch
@@ -16,7 +18,7 @@
     </context-param>
 
     <session-config>
-        <session-timeout>6</session-timeout>
+        <session-timeout>3</session-timeout>
     </session-config>
 
     <servlet>

@@ -16,14 +16,20 @@
  */
 package org.jboss.seam.examples.booking.reference;
 
+import java.io.Serializable;
+
 /**
  * A simple Java bean representing a month. This bean assumes that the names it is provided have already been localized.
  *
  * @author <a href="http://community.jboss.org/people/dan.j.allen">Dan Allen</a>
  */
-public class Month {
+public class Month implements Serializable {
 
-    private int index;
+    /**
+    * 
+    */
+   private static final long serialVersionUID = 1L;
+   private int index;
     private String name;
     private String shortName;
 

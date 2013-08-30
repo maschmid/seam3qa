@@ -34,6 +34,7 @@ import org.jboss.solder.logging.Logger;
 import org.picketlink.idm.impl.api.PasswordCredential;
 import org.picketlink.idm.impl.api.model.SimpleUser;
 
+import org.jboss.ejb3.annotation.Clustered;
 /**
  * This implementation of a <strong>Authenticator</strong> that uses Seam security.
  *
@@ -41,6 +42,7 @@ import org.picketlink.idm.impl.api.model.SimpleUser;
  */
 @Stateful
 @Named("bookingAuthenticator")
+@Clustered
 public class BookingAuthenticator extends BaseAuthenticator implements Authenticator {
 
     @Inject

@@ -22,6 +22,7 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.TransactionPhase;
@@ -34,6 +35,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.ocpsoft.pretty.time.PrettyTime;
+
 import org.jboss.seam.examples.booking.account.Authenticated;
 import org.jboss.seam.examples.booking.i18n.DefaultBundleKey;
 import org.jboss.seam.examples.booking.log.BookingLog;
@@ -46,6 +48,7 @@ import org.jboss.seam.faces.context.conversation.End;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.international.status.builder.TemplateMessage;
 import org.jboss.solder.logging.TypedCategory;
+import org.jboss.ejb3.annotation.Clustered;
 
 import static javax.persistence.PersistenceContextType.EXTENDED;
 
@@ -55,6 +58,7 @@ import static javax.persistence.PersistenceContextType.EXTENDED;
 @Stateful
 @ConversationScoped
 @Named
+@Clustered
 @Interceptors(ConversationBoundaryInterceptor.class) // not necessary, this is a temporary workaround for GLASSFISH-17184
 public class BookingAgent {
     @Inject
@@ -138,7 +142,6 @@ public class BookingAgent {
     }
 
     @Produces
-    @ConversationScoped
     @Named
     public Booking getBooking() {
         return booking;
