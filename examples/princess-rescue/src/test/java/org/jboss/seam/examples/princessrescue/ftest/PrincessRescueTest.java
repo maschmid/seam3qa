@@ -4,10 +4,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.jboss.arquillian.ajocado.framework.AjaxSelenium;
-import org.jboss.arquillian.ajocado.locator.IdLocator;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -16,8 +15,12 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.jboss.arquillian.ajocado.locator.LocatorFactory.id;
-import static org.jboss.arquillian.ajocado.Ajocado.waitForHttp;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -49,7 +52,9 @@ public class PrincessRescueTest {
     private static final String MSG_SHOT_DRAGON = "Your arrow wakes up the dragon, without appearing to do any real damage. The last moments of your life are spent running from an angry dragon.";
 
     private static final String MAIN_PAGE = "/home.jsf";
-    private IdLocator NEW_GAME_BUTTON = id("bv:next");
+    
+    @FindBy(id = "bv:next")
+    private WebElement NEW_GAME_BUTTON;
     
     public static final String ARCHIVE_NAME = "config-princess-rescue.war";
     public static final String BUILD_DIRECTORY = "target";
@@ -66,7 +71,7 @@ public class PrincessRescueTest {
     URL contextPath;
     
     @Drone
-    AjaxSelenium selenium;
+    WebDriver selenium;
     
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -76,10 +81,10 @@ public class PrincessRescueTest {
 
     @Before
     public void startNewGame() throws MalformedURLException {
-        selenium.setSpeed(300);
-        selenium.open(new URL(contextPath.toString() + MAIN_PAGE));
+        selenium.navigate().to(contextPath.toString() + MAIN_PAGE);
         ensureTextPresent(MSG_INTRO);
-        waitForHttp(selenium).click(NEW_GAME_BUTTON);
+        
+        Graphene.guardHttp(NEW_GAME_BUTTON).click();
         ensureTextPresent(MSG_ENTRANCE);
     }
 
@@ -88,58 +93,60 @@ public class PrincessRescueTest {
      */
     @Test
     public void findPrincess() {
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+    	
+    	clickAndWait(Action.MOVE, Direction.NORTH);
+    	
         ensureTextPresent(MSG_NEAR_DWARF);
         ensureTextPresent(MSG_NEAR_PIT);
 
         // Take a look at the dwarf
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.WEST));
+        moveTo(Direction.WEST);
         ensureTextPresent(MSG_DWARF);
         for (Action action : Action.values()) {
-            assertTrue(selenium.isEditable(getLocator(action, Direction.EAST)));
-            assertFalse(selenium.isEditable(getLocator(action, Direction.WEST)));
-            assertFalse(selenium.isEditable(getLocator(action, Direction.NORTH)));
-            assertFalse(selenium.isEditable(getLocator(action, Direction.SOUTH)));
+            assertTrue(isEditable(action, Direction.EAST));
+            assertFalse(isEditable(action, Direction.WEST));
+            assertFalse(isEditable(action, Direction.NORTH));
+            assertFalse(isEditable(action, Direction.SOUTH));
         }
 
         // We can still hear the dwarf singing
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_NEAR_DWARF);
         ensureTextPresent(MSG_NEAR_PIT);
 
         // Kill the drunkard
-        waitForHttp(selenium).click(getLocator(Action.SHOT, Direction.WEST));
+        shootTo(Direction.WEST);
         ensureTextPresent(MSG_SHOT_DWARF);
 
         // Bury the evidence
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.WEST));
+        moveTo(Direction.WEST);
         ensureTextPresent(MSG_DEAD_DWARF);
 
         // No more bad singer
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
-        assertFalse("Expected the dwarf to be dead already.",selenium.isTextPresent(MSG_NEAR_DWARF));
+        moveTo(Direction.EAST);
+        assertFalse("Expected the dwarf to be dead already.", isTextPresent(MSG_NEAR_DWARF));
         ensureTextPresent(MSG_NEAR_PIT);
 
         // Now for the princess!
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+        moveTo(Direction.NORTH);
         ensureTextPresent(MSG_NEAR_BATS);
         ensureTextPresent(MSG_NEAR_PIT);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_BATS);
         ensureTextPresent(MSG_NEAR_PIT);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_NEAR_BATS);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_NEAR_DRAGON);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+        moveTo(Direction.NORTH);
         ensureTextPresent(MSG_NEAR_PRINCESS);
 
         // Happy end
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_PRINCESS);
         ensureButtonsDisabled();
     }
@@ -149,25 +156,25 @@ public class PrincessRescueTest {
      */
     @Test
     public void dieHeroically() {
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+    	moveTo(Direction.NORTH);
         ensureTextPresent(MSG_NEAR_DWARF);
         ensureTextPresent(MSG_NEAR_PIT);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+        moveTo(Direction.NORTH);
         ensureTextPresent(MSG_NEAR_BATS);
         ensureTextPresent(MSG_NEAR_PIT);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_BATS);
         ensureTextPresent(MSG_NEAR_PIT);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_NEAR_BATS);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_NEAR_DRAGON);
 
-        waitForHttp(selenium).click(getLocator(Action.SHOT, Direction.EAST));
+        shootTo(Direction.EAST);
         ensureTextPresent(MSG_SHOT_DRAGON);
         ensureButtonsDisabled();
     }
@@ -177,11 +184,11 @@ public class PrincessRescueTest {
      */
     @Test
     public void dieImpressively() {
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+        moveTo(Direction.NORTH);
         ensureTextPresent(MSG_NEAR_DWARF);
         ensureTextPresent(MSG_NEAR_PIT);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.EAST));
+        moveTo(Direction.EAST);
         ensureTextPresent(MSG_PIT);
         ensureButtonsDisabled();
     }
@@ -191,19 +198,19 @@ public class PrincessRescueTest {
      */
     @Test
     public void quitEarly() {
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+    	moveTo(Direction.NORTH);
         ensureTextPresent(MSG_NEAR_DWARF);
         ensureTextPresent(MSG_NEAR_PIT);
 
-        waitForHttp(selenium).click(getLocator(Action.SHOT, Direction.WEST));
+        shootTo(Direction.WEST);
         ensureTextPresent(MSG_SHOT_DWARF);
 
-        waitForHttp(selenium).click(NEW_GAME_BUTTON);
+        Graphene.guardHttp(NEW_GAME_BUTTON).click();
         ensureTextPresent(MSG_INTRO);
-        waitForHttp(selenium).click(NEW_GAME_BUTTON);
+        Graphene.guardHttp(NEW_GAME_BUTTON).click();
         ensureTextPresent(MSG_ENTRANCE);
 
-        waitForHttp(selenium).click(getLocator(Action.MOVE, Direction.NORTH));
+        moveTo(Direction.NORTH);
         ensureTextPresent(MSG_NEAR_DWARF);
         ensureTextPresent(MSG_NEAR_PIT);
     }
@@ -214,23 +221,42 @@ public class PrincessRescueTest {
     private void ensureButtonsDisabled() {
         for (Direction direction : Direction.values()) {
             for (Action action : Action.values()) {
-                assertFalse(selenium.isEditable(getLocator(action, direction)));
+                assertFalse(selenium.findElement(getLocator(action, direction)).isEnabled());
             }
         }
+    }
+    
+    private boolean isTextPresent(String text) {
+    	return selenium.findElement(By.tagName("body")).getText().contains(text);
     }
 
     /**
      * Ensures that the specified text is present on the page. Fails if not.
      */
     private void ensureTextPresent(String text) {
-        assertTrue("Expected the following text to be present: \"" + text + "\"",selenium.isTextPresent(text));
+        assertTrue("Expected the following text to be present: \"" + text + "\"", isTextPresent(text));
+    }
+    
+    private boolean isEditable(Action action, Direction direction) {
+    	return selenium.findElement(getLocator(action, direction)).isEnabled();
     }
 
     /**
      * Returns the move or shot button specified by parameters.
      */
-    private IdLocator getLocator(Action action, Direction direction) {
-        return id("bv:" + action.toString().toLowerCase() + direction.toString().toLowerCase());
+    private By getLocator(Action action, Direction direction) {
+    	return By.id("bv:" + action.toString().toLowerCase() + direction.toString().toLowerCase());
     }
 
+    private void clickAndWait(Action action, Direction direction) {
+    	Graphene.guardHttp(selenium.findElement(getLocator(action, direction))).click();
+    }
+    
+    private void moveTo(Direction direction) {
+    	clickAndWait(Action.MOVE, direction);
+    }
+    
+    private void shootTo(Direction direction) {
+    	clickAndWait(Action.SHOT, direction);
+    }
 }

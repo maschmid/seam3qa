@@ -1,0 +1,54 @@
+Seam Examples
+=============
+
+The examples contained in these directories require Maven 3.0 to build.
+
+Consolidated examples
+---------------------
+These are examples which demonstrate a number of Seam features.
+
+seam-booking - Seam Booking example, demonstrates conversations, validation, security
+
+Seam Catch examples
+-------------------
+catch-basic-servlet    - Basic exception handling example
+
+Seam Config examples
+--------------------
+config-princess-rescue - Demonstrates XML configuration
+
+Seam Faces examples
+-------------------
+faces-short.ly         - URL shortening example
+
+Seam International examples
+---------------------------
+international-timeanddate - Demonstration app showing timeanddate.com-like features
+
+Seam REST examples
+------------------
+rest-tasks            - Demonstrates Seam REST module
+rest-exceptions       - Demonstrates declarative exception handling and Seam Catch integration
+rest-client           - Demonstrates Seam REST Client
+
+Seam Remoting examples
+----------------------
+remoting-helloworld - Demonstrates simple remote RPC call via AJAX
+remoting-model      - Demonstrates the Model API
+remoting-validation - Demonstrates client-side Bean Validation
+
+Seam Security examples
+----------------------
+security-simple        - Simple authentication example
+security-idmconsole    - Identity Management console, demonstrates PicketLink IDM integration features
+security-openid-rp     - OpenID Relying Party example
+security-authorization - Typesafe authorization example
+
+Seam Validation examples
+------------------------
+validation-helloworld - Basic hello world example demonstrating Seam Validation module
+
+Seam Wicket examples
+--------------------
+wicket-numberguess  - Numberguess example using Wicket for the view layer
+

@@ -1,0 +1,257 @@
+<assembly
+   xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+   <id>distribution</id>
+
+   <formats>
+      <format>zip</format>
+   </formats>
+
+   <baseDirectory>${project.build.finalName}-${project.version}</baseDirectory>
+
+   <!-- Add distribution files -->
+   <fileSets>
+      <!-- readme.txt and other files -->
+      <fileSet>
+         <directory>src/main/assembly</directory>
+         <outputDirectory>.</outputDirectory>
+         <filtered>true</filtered>
+         <includes>
+            <include>readme.txt</include>
+            <include>license.txt</include>
+            <include>notice.txt</include>            
+         </includes>
+      </fileSet>
+
+      <fileSet>
+         <directory>src/main/assembly</directory>
+         <outputDirectory>examples</outputDirectory>
+         <includes>
+            <include>examples.txt</include>
+         </includes>
+      </fileSet>
+      
+      <!-- Include the examples parent pom -->
+      <fileSet>
+         <directory>${project.build.directory}/example-parent</directory>
+         <outputDirectory>examples</outputDirectory>
+         <includes>
+            <include>pom.xml</include>
+         </includes>
+      </fileSet>
+      
+      <!-- Javadoc -->
+      <fileSet>
+         <directory>${project.build.directory}/apidocs</directory>
+         <outputDirectory>doc/api</outputDirectory>      
+         <excludes>
+            <exclude>argfile</exclude>
+            <exclude>options</exclude>
+         </excludes>
+      </fileSet>
+      
+   </fileSets>
+
+   <dependencySets>
+      <!-- Add necessary module binaries -->
+      <dependencySet>
+         <outputDirectory>artifacts</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.conversation:seam-conversation-spi</include>
+            <include>org.jboss.seam.conversation:seam-conversation-weld</include>
+
+            <include>org.jboss.seam.faces:seam-faces-api</include>
+            <include>org.jboss.seam.faces:seam-faces</include>
+
+            <include>org.jboss.seam.international:seam-international-api</include>
+            <include>org.jboss.seam.international:seam-international</include>
+
+            <include>org.jboss.seam.jcr:seam-jcr-api</include>
+            <include>org.jboss.seam.jcr:seam-jcr</include>
+            
+            <include>org.jboss.seam.jms:seam-jms-api</include>
+            <include>org.jboss.seam.jms:seam-jms</include>
+            
+            <include>org.jboss.seam.mail:seam-mail-api</include>
+            <include>org.jboss.seam.mail:seam-mail</include>
+
+            <include>org.jboss.seam.persistence:seam-persistence-api</include>
+            <include>org.jboss.seam.persistence:seam-persistence</include>
+
+            <include>org.jboss.seam.transaction:seam-transaction-api</include>
+            <include>org.jboss.seam.transaction:seam-transaction</include>
+           
+            <include>org.jboss.seam.remoting:seam-remoting</include>
+            
+            <include>org.jboss.seam.reports:seam-reports-api</include>
+            <include>org.jboss.seam.reports:seam-reports-pentaho</include>
+            <include>org.jboss.seam.reports:seam-reports-jasper</include>
+            <include>org.jboss.seam.reports:seam-reports-mvel</include>
+            <include>org.jboss.seam.reports:seam-reports-xdocreport</include>
+
+            <include>org.jboss.seam.rest:seam-rest-api</include>
+            <include>org.jboss.seam.rest:seam-rest</include>
+
+            <include>org.jboss.seam.security:seam-security-api</include>
+            <include>org.jboss.seam.security:seam-security</include>
+            <include>org.jboss.seam.security:seam-security-external</include>
+
+            <include>org.jboss.seam.social:seam-social-api</include>
+            <include>org.jboss.seam.social:seam-social</include>
+            <include>org.jboss.seam.social:seam-social-facebook</include>
+            <include>org.jboss.seam.social:seam-social-linkedin</include>
+            <include>org.jboss.seam.social:seam-social-twitter</include>
+
+            <include>org.jboss.seam.spring:seam-spring-core</include>
+
+            <include>org.jboss.solder:solder-api</include>
+            <include>org.jboss.solder:solder-impl</include>
+            <include>org.jboss.solder:solder-logging</include>
+            <include>org.jboss.solder:solder-tooling</include>
+
+            <include>org.jboss.seam.validation:seam-validation-api</include>
+            <include>org.jboss.seam.validation:seam-validation</include>
+
+            <include>org.jboss.seam.wicket:seam-wicket</include>
+         </includes>
+         <excludes>
+            <exclude>org.jboss.*:*:*:javadoc</exclude>
+            <exclude>*:*:*:sources</exclude>
+         </excludes>
+         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      
+      <!-- Add sources -->
+      <dependencySet>
+         <outputDirectory>source</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <unpack>true</unpack>
+         <unpackOptions>
+            <excludes>
+               <exclude>META-INF/**</exclude>
+            </excludes>
+         </unpackOptions>
+         <includes>
+            <include>org.jboss.seam.conversation:seam-conversation-spi:jar:sources</include>
+	    <include>org.jboss.seam.conversation:seam-conversation-weld:jar:sources</include>
+	    <include>org.jboss.seam.conversation:seam-conversation-candi:jar:sources</include>
+	    <include>org.jboss.seam.conversation:seam-conversation-owb:jar:sources</include>
+
+            <include>org.jboss.seam.faces:seam-faces-api:jar:sources</include>         
+            <include>org.jboss.seam.faces:seam-faces:jar:sources</include>
+
+            <include>org.jboss.seam.international:seam-international-api:jar:sources</include>            
+            <include>org.jboss.seam.international:seam-international:jar:sources</include>
+            
+            <include>org.jboss.seam.jms:seam-jms-api:jar:sources</include>
+            <include>org.jboss.seam.jms:seam-jms:jar:sources</include>
+	    <!--include>org.jboss.seam.jms:seam-jms-activemq:jar:sources</include>
+	    <include>org.jboss.seam.jms:seam-jms-openmq:jar:sources</include-->
+            
+            <include>org.jboss.seam.jcr:seam-jcr-api:jar:sources</include>
+            <include>org.jboss.seam.jcr:seam-jcr:jar:sources</include>
+            
+            <include>org.jboss.seam.mail:seam-mail-api:jar:sources</include>
+            <include>org.jboss.seam.mail:seam-mail:jar:sources</include>
+            
+            <include>org.jboss.seam.persistence:seam-persistence-api:jar:sources</include>
+            <include>org.jboss.seam.persistence:seam-persistence:jar:sources</include>
+
+            <include>org.jboss.seam.transaction:seam-transaction-api:jar:sources</include>
+            <include>org.jboss.seam.transaction:seam-transaction:jar:sources</include>
+            
+            <include>org.jboss.seam.remoting:seam-remoting:jar:sources</include>
+            
+            <include>org.jboss.seam.reports:seam-reports-api:jar:sources</include>
+            <include>org.jboss.seam.reports:seam-reports-pentaho:jar:sources</include>
+            <include>org.jboss.seam.reports:seam-reports-jasper:jar:sources</include>
+            <include>org.jboss.seam.reports:seam-reports-mvel:jar:sources</include>
+            <include>org.jboss.seam.reports:seam-reports-xdocreport:jar:sources</include>            
+            
+            <include>org.jboss.seam.rest:seam-rest:jar:sources</include>
+	    <include>org.jboss.seam.rest:seam-rest-api:jar:sources</include>
+
+            <include>org.jboss.seam.security:seam-security-api:jar:sources</include>            
+            <include>org.jboss.seam.security:seam-security:jar:sources</include>
+            <include>org.jboss.seam.security:seam-security-external:jar:sources</include>
+            
+            <include>org.jboss.seam.social:seam-social-api:jar:sources</include>
+            <include>org.jboss.seam.social:seam-social:jar:sources</include>
+            <include>org.jboss.seam.social:seam-social-facebook:jar:sources</include>
+            <include>org.jboss.seam.social:seam-social-linkedin:jar:sources</include>
+            <include>org.jboss.seam.social:seam-social-twitter:jar:sources</include>            
+
+            <include>org.jboss.seam.spring:seam-spring-core:jar:sources</include>
+
+            <include>org.jboss.solder:solder-api:jar:sources</include>
+            <include>org.jboss.solder:solder-impl:jar:sources</include>
+            <include>org.jboss.solder:solder-tooling:jar:sources</include>
+
+            <include>org.jboss.seam.validation:seam-validation-api:jar:sources</include>
+            <include>org.jboss.seam.validation:seam-validation:jar:sources</include>
+            
+            <include>org.jboss.seam.wicket:seam-wicket:jar:sources</include>                        
+	    <include>org.jboss.seam.wicket:seam-wicket-mock:jar:sources</include>
+         </includes>
+      </dependencySet>
+      
+      <!-- Add necessary dependencies -->
+      <dependencySet>
+         <outputDirectory>lib</outputDirectory>
+         <useProjectArtifact>false</useProjectArtifact>
+         <useTransitiveDependencies>true</useTransitiveDependencies>
+         <excludes>
+            <exclude>org.jboss.seam.*</exclude>
+            <exclude>org.jboss.solder:*</exclude>       
+            <exclude>org.jboss.spec:*</exclude>
+         </excludes>
+         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+      </dependencySet>
+      
+      <!-- Pull in the module examples -->
+      <dependencySet>
+         <outputDirectory>examples</outputDirectory>
+         <unpack>true</unpack>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.faces:seam-faces-example-short-ly</include>
+            <include>org.jboss.seam.examples:seam-international-example-timeanddate</include>                        
+            <include>org.jboss.seam.remoting:seam-remoting-example-model</include>
+            <include>org.jboss.seam.remoting:seam-remoting-example-helloworld</include>
+            <include>org.jboss.seam.remoting:seam-remoting-example-validation</include>
+            <include>org.jboss.seam.rest:seam-rest-example-client</include>
+            <include>org.jboss.seam.rest:seam-rest-example-exceptions</include>
+            <include>org.jboss.seam.rest:seam-rest-example-tasks</include>
+            <include>org.jboss.seam.examples:seam-security-example-authorization</include>
+            <include>org.jboss.seam.security:seam-security-example-simple</include>
+            <include>org.jboss.seam.security:seam-security-example-idmconsole</include>
+            <include>org.jboss.seam.security:seam-security-example-openid-rp</include>
+            <include>org.jboss.seam.validation:seam-validation-example-helloworld</include>
+            <include>org.jboss.seam.wicket:seam-wicket-example-numberguess</include>           
+            <include>org.jboss.seam.examples:seam-booking</include>
+	    <include>org.jboss.seam.examples:seam-quiz</include>
+	    <include>org.jboss.seam.examples:seam-princess-rescue</include>
+         </includes>
+      </dependencySet>
+
+      <!-- Pull in docbook artifacts -->
+      <dependencySet>
+         <outputDirectory>doc/reference</outputDirectory>
+         <unpack>true</unpack>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam:seam-reference-guide</include>
+         </includes>
+         <unpackOptions>
+            <excludes>
+               <exclude>META-INF/</exclude>
+            </excludes>
+         </unpackOptions>
+      </dependencySet> 
+      
+   </dependencySets>
+     
+
+</assembly>

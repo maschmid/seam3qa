@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"  [ ]>
+<book lang="en" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bundled-book_info.xml" />
+
+   <toc />
+
+   <title>Seam 3</title>
+   <subtitle>Bundled Reference Guide</subtitle>
+
+   <xi:include href="bundled_credits.xml"/>
+   <xi:include href="bundled_intro.xml"/>
+   
+   <part>
+      <title>Solder</title>
+      <xi:include href="solder-preface.xml"/>
+      <xi:include href="solder-gettingstarted.xml"/>
+      <xi:include href="solder-programmingmodel.xml"/>
+      <xi:include href="solder-annotationliterals.xml"/>
+      <xi:include href="solder-elextensions.xml"/>
+      <xi:include href="solder-resourceloading.xml"/>
+      <xi:include href="solder-logging.xml"/>
+      <xi:include href="solder-typeutilities.xml"/>
+      <xi:include href="solder-beanmanagerprovider.xml"/>
+      <xi:include href="solder-beanutilities.xml"/>
+      <xi:include href="solder-properties.xml"/>
+      <xi:include href="solder-unwraps.xml"/>
+      <xi:include href="solder-defaultbeans.xml"/>
+      <xi:include href="solder-genericbeans.xml"/>
+      <xi:include href="solder-servicehandler.xml"/>
+      <xi:include href="config-introduction.xml"/>
+      <xi:include href="config-xml-provider.xml"/>
+      <xi:include href="servlet-introduction.xml"/>
+      <xi:include href="servlet-installation.xml"/>
+      <xi:include href="servlet-events.xml"/>
+      <xi:include href="servlet-injectable_refs.xml"/>
+      <xi:include href="servlet-exception_handling.xml" />
+      <xi:include href="servlet-beanmanager.xml"/>
+      <xi:include href="servlet-resource.xml"/>
+      <xi:include href="catch-introduction.xml"/>
+      <xi:include href="catch-client_usage.xml"/>
+      <xi:include href="catch-advanced_usage.xml"/>
+      <xi:include href="catch-integration.xml"/>
+      <xi:include href="catch-glossary.xml"/>           
+   </part>
+   
+   <part>
+      <title>Seam Persistence</title>
+      <xi:include href="persistence-general.xml"/>
+   </part>   
+   
+   <part>
+      <title>Seam Transaction</title>
+      <xi:include href="transaction-general.xml"/>
+   </part>     
+   
+   <part>
+      <title>Seam Security</title>      
+      <xi:include href="security-introduction.xml"/>
+      <xi:include href="security-authentication.xml"/>
+      <xi:include href="security-identitymanagement.xml"/>   
+      <xi:include href="security-authentication-external.xml"/>
+      <xi:include href="security-authorization.xml"/>      
+      <xi:include href="security-events.xml"/>
+   </part>
+
+   <part>
+      <title>Seam International</title>
+      <xi:include href="international-preface.xml" />
+      <xi:include href="international-installation.xml" />
+      <xi:include href="international-locales.xml" />
+      <xi:include href="international-timezones.xml" />
+      <xi:include href="international-messages.xml" />
+   </part>
+
+   <part>
+      <title>Seam Faces</title>
+      <xi:include href="faces-preface.xml" />
+      <xi:include href="faces-installation.xml" />
+      <xi:include href="faces-scopes.xml" />
+      <xi:include href="faces-messages.xml" />
+      <xi:include href="faces-locale.xml" />
+      <xi:include href="faces-components.xml" />
+      <xi:include href="faces-artifacts.xml" />
+      <xi:include href="faces-events.xml" />            
+      <xi:include href="faces-projectstage.xml" />
+      <xi:include href="faces-viewconfig.xml" />
+   </part>
+   
+   <part>
+     <title>Seam Reports</title>
+     <xi:include href="reports-preface.xml" />
+     <xi:include href="reports-installation.xml" />
+     <xi:include href="reports-usage.xml" />
+   </part>
+   
+   <part>
+     <title>Seam Mail</title>
+     <xi:include href="mail-introduction.xml" />
+     <xi:include href="mail-configuration.xml" />
+     <xi:include href="mail-core.xml" />
+     <xi:include href="mail-templating.xml" />
+     <xi:include href="mail-advanced.xml" />
+   </part>   
+
+   <part>
+      <title>Seam Remoting</title>
+      <xi:include href="remoting-general.xml"/>
+      <xi:include href="remoting-model.xml"/>
+      <xi:include href="remoting-validation.xml"/>
+   </part>
+   
+   <part>
+      <title>Seam REST</title>
+      <xi:include href="rest-preface.xml" />
+      <xi:include href="rest-installation.xml" />
+      <xi:include href="rest-exception-mapping.xml" />
+      <xi:include href="rest-validation.xml" />
+      <xi:include href="rest-templating.xml" />
+      <xi:include href="rest-client.xml" />
+      <xi:include href="rest-dependencies.xml" />
+   </part>
+   
+   <part>
+      <title>Seam JCR</title>
+      <xi:include href="jcr-introduction.xml" />
+      <xi:include href="jcr-modeshape.xml"/>
+      <xi:include href="jcr-jackrabbit.xml"/>
+      <xi:include href="jcr-event-mapping.xml"/>
+      <xi:include href="jcr-ocm.xml"/>
+   </part>  
+   
+   <part>
+      <title>Seam JMS</title>
+      <xi:include href="jms-intro.xml" />
+      <xi:include href="jms-installation.xml" />
+      <xi:include href="jms-resource-injection.xml" />
+      <xi:include href="jms-messaging.xml" />
+      <xi:include href="jms-routing.xml" />
+      <xi:include href="jms-mapping-interfaces.xml" />
+   </part>    
+   
+   <part>
+      <title>Seam Validation</title>
+      <xi:include href="validation-introduction.xml"/>
+      <xi:include href="validation-installation.xml"/>
+      <xi:include href="validation-dependency-injection.xml"/>
+      <xi:include href="validation-method-validation.xml"/>      
+   </part>
+
+   <part>
+      <title>Seam Social</title>
+      <xi:include href="social-introduction.xml" />
+      <xi:include href="social-gettingstarted.xml" />
+   </part>
+
+   <part>
+      <title>Seam Spring</title>
+      <xi:include href="spring-introduction.xml" />
+      <xi:include href="spring-installation.xml" />
+      <xi:include href="spring-usage.xml" />
+   </part>
+   
+   <part>
+      <title>Seam Wicket</title>
+      <xi:include href="wicket-preface.xml" />
+      <xi:include href="wicket-installation.xml" />
+      <xi:include href="wicket-features.xml" />      
+   </part>
+
+</book>

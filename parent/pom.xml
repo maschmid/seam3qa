@@ -42,7 +42,7 @@
       <!-- Force encoding to UTF-8 (bug in OS X)-->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-   
+
       <!-- Testing library versions -->
       <testng.version>5.10</testng.version>
       <junit.version>4.8.1</junit.version>
@@ -51,10 +51,10 @@
       <jacoco.version>0.5.3.201107060350</jacoco.version>
 
       <!-- Arquillian versions -->
-      <arquillian.version>1.0.3.Final</arquillian.version>
+      <arquillian.version>1.1.1.Final</arquillian.version>
 
-      <arquillian.drone.version>1.0.0.CR2</arquillian.drone.version>
-      <arquillian.ajocado.version>1.0.0.CR2</arquillian.ajocado.version>
+      <arquillian.drone.version>1.2.0.Final</arquillian.drone.version>
+      <arquillian.graphene.version>2.0.0.Final</arquillian.graphene.version>
       <arquillian.jacoco.version>1.0.0.Alpha2</arquillian.jacoco.version>
 <!--
       <arquillian.jboss.version>1.0.0.CR2</arquillian.jboss.version>
@@ -202,7 +202,15 @@
             <scope>import</scope>
             <type>pom</type>
          </dependency>
-         
+
+         <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver</artifactId>
+            <version>${arquillian.graphene.version}</version>
+            <type>pom</type>
+         </dependency>
+        
+<!-- 
          <dependency>
             <groupId>org.jboss.arquillian.ajocado</groupId>
             <artifactId>arquillian-ajocado-junit</artifactId>
@@ -210,6 +218,7 @@
             <type>pom</type>
             <scope>test</scope>
          </dependency>
+-->
 
          <!-- Java Code Coverage -->
          <dependency>
